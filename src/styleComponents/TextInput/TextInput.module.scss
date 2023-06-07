@@ -1,0 +1,44 @@
+.textInput {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+}
+.textInputField {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: var(--light-bg);
+  height: 3.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid var(--dark);
+  margin: 0.25rem 0;
+  &:focus {
+    outline: 1px solid var(--accent);
+    border: 1px solid var(--accent);
+  }
+  width: 100%;
+}
+
+.input {
+  padding: 1.3rem 0.8rem;
+  height: 3.5rem;
+  background-color: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  position: absolute;
+  font-size: 1rem;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.label {
+  color: var(--black);
+  transition: 200ms ease-in;
+  margin: 0.25rem 0;
+}

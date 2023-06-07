@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "grindylocks/server/api/trpc";
+import { createTRPCRouter, privateProcedure, publicProcedure } from "grindylocks/server/api/trpc";
 import { clerkClient } from "@clerk/nextjs";
 import { type User } from "@clerk/nextjs/dist/types/server";
 import { TRPCError } from "@trpc/server";
@@ -16,6 +16,11 @@ export const postsRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
     const posts = await ctx.prisma.post.findMany({
       take: 100,
+      orderBy: [
+        {
+          createdAt: "desc"
+        }
+      ]
     });
 
     const users = (
@@ -25,7 +30,7 @@ export const postsRouter = createTRPCRouter({
       })
     ).map(filterUserForClient);
 
-    console.log({ users });
+
 
     return posts.map((post) => {
       const user = users.find((user) => user.id === post.userId);
@@ -41,4 +46,15 @@ export const postsRouter = createTRPCRouter({
       };
     });
   }),
+
+  create: privateProcedure.input(z.object({ content: z.string().min(1).max(280) })).mutation(async ({ ctx, input }) => {
+    const userId = ctx.userId
+    const post = await ctx.prisma.post.create({
+      data: {
+        userId,
+        content: input.content
+      }
+    })
+    return post
+  })
 });

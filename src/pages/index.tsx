@@ -1,3 +1,4 @@
+
 import { type NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -5,11 +6,22 @@ import { api, type RouterOutputs } from "grindylocks/utils/api";
 import { SignInButton, SignOutButton, useUser } from "@clerk/clerk-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useState } from "react";
 
 dayjs.extend(relativeTime);
 
 const CreatePostWizard = () => {
   const { user } = useUser();
+
+  const [value, setValue] = useState("")
+
+  const ctx = api.useContext()
+  const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
+    onSuccess: () => {
+      setValue("")
+      ctx.posts.getAll.invalidate()
+    }
+  })
 
   if (!user) {
     return null;
@@ -27,7 +39,12 @@ const CreatePostWizard = () => {
       <input
         placeholder="Type some emojis"
         className="grow bg-transparent outline-none "
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        disabled={isPosting}
+
       />
+      <button type="submit" onClick={() => mutate({ content: value })}>Submit</button>
     </div>
   );
 };

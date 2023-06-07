@@ -1,0 +1,12 @@
+.Layout {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  max-width: 925px;
+  margin: 0 auto;
+}

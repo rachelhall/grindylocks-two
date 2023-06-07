@@ -1,0 +1,79 @@
+.button {
+  cursor: pointer;
+  position: relative;
+  margin: 0.5rem 0;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--accent);
+  color: var(--light);
+  text-transform: uppercase;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  transition: all 0.15s;
+  padding: 0 1rem;
+  font-weight: bold;
+}
+
+// Width
+
+.xSmall {
+  width: 5rem;
+  height: 2rem;
+  font-size: 0.8rem;
+}
+
+.small {
+  width: 10rem;
+}
+.medium {
+  width: 15rem;
+}
+.large {
+  width: 20rem;
+}
+
+.full {
+  width: 100%;
+}
+
+.fit {
+  width: fit-content;
+  padding: 0 1rem;
+}
+
+// Color
+
+.primary {
+  background-color: var(--dark);
+  color: var(--light);
+}
+
+.secondary {
+  background-color: var(--accent);
+  color: var(--light);
+}
+
+.transparent {
+  background-color: transparent;
+  color: var(--black);
+  border: 1px solid var(--black);
+}
+
+.textButton {
+  background-color: transparent;
+  color: var(--black);
+  cursor: pointer;
+  font-weight: 900;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+  width: fit-content;
+  height: fit-content;
+  display: inline-flex;
+  align-items: flex-end;
+}
