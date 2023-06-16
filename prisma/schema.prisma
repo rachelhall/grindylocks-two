@@ -15,8 +15,47 @@ model Post {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
 
-    content String @db.VarChar(255)
-    userId  String
+    content  String  @db.VarChar(255)
+    userId   String
+    filePath String?
 
     @@index([userId])
+}
+
+enum Category {
+    STREET
+    VERT
+    TRANSITION
+    PUMP_TRACK
+    SKATER_CROSS
+}
+
+model Park {
+    id             String    @id @default(cuid())
+    name           String
+    description    String
+    address_number String
+    street         String
+    post_code      String
+    city           String
+    region         String
+    region_code    String
+    country        String
+    lat            String
+    lng            String
+    elements       Element[]
+}
+
+model Element {
+    id       String   @id @default(cuid())
+    name     String
+    category Category
+    Park     Park?    @relation(fields: [parkId], references: [id])
+    parkId   String?
+
+    @@index([parkId])
+}
+
+model Profile {
+    id String @id @default(cuid())
 }

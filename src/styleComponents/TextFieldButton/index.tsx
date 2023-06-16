@@ -1,7 +1,8 @@
 import React from "react";
-import { Button } from "styleComponents/Button";
+
 
 import styles from "./TextFieldButton.module.scss";
+import { Button } from "../Button";
 
 interface IProps {
   children: JSX.Element | string;

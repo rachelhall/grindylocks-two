@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import { ModalContext } from "lib/context/ModalContext";
-import { CloseModalButton, Text } from "styleComponents";
+import { ModalContext } from "../../lib/context/ModalContext"
+
 
 import styles from "./Modal.module.scss";
+import { CloseModalButton } from "../CloseModalButton";
 
 export const Modal: React.FC = () => {
   const { modalContent, handleModal, modal } = useContext(ModalContext);

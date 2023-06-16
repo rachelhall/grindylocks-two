@@ -5,9 +5,8 @@ import { api, type RouterOutputs } from "grindylocks/utils/api";
 import { SignInButton, SignOutButton, useUser } from "@clerk/clerk-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import toast from "react-hot-toast";
-import Link from "next/link";
 import { PageLayout } from "grindylocks/components/layout";
 import { PostView } from "grindylocks/components/PostView";
 
@@ -15,9 +14,18 @@ dayjs.extend(relativeTime);
 
 const CreatePostWizard = () => {
   const { user } = useUser();
-  console.log(user)
 
-  const [value, setValue] = useState("")
+
+  const [value, setValue] = useState("");
+  const [filePath, setFilePath] = useState("")
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files !== null && e.target.files[0]) {
+      setFilePath(URL.createObjectURL(e.target.files[0]))
+    }
+
+
+  }
 
   const ctx = api.useContext()
   const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
@@ -35,6 +43,8 @@ const CreatePostWizard = () => {
       ctx.posts.getAll.invalidate()
     }
   })
+
+  const handleSubmit = () => mutate({ content: value, filePath })
 
   if (!user) {
     return null;
@@ -55,9 +65,10 @@ const CreatePostWizard = () => {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         disabled={isPosting}
-
       />
-      {value !== "" && <button disabled={isPosting} type="submit" onClick={() => mutate({ content: value })}>Submit</button>}
+
+      <input type="file" onChange={handleFileChange} />
+      {value !== "" && <button disabled={isPosting} type="submit" onClick={handleSubmit}>Submit</button>}
 
     </div>
   );

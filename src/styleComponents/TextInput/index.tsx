@@ -1,10 +1,10 @@
 import React, { HTMLInputTypeAttribute } from "react";
 import { UseFormRegister } from "react-hook-form";
 import { Path } from "react-hook-form";
-import { Button } from "styleComponents/Button";
-import TextFieldButton from "styleComponents/TextFieldButton";
+
 
 import styles from "./TextInput.module.scss";
+import TextFieldButton from "../TextFieldButton";
 
 interface IProps {
   autoComplete?: "address-line1";
