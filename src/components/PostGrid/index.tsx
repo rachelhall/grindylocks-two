@@ -14,7 +14,7 @@ export const PostGrid: React.FC<IProps> = (props) => {
     return (
         <div className={styles.PostGrid}>
             {posts.map(post => (
-                <PostGridItem post={post} />
+                <PostGridItem post={post} key={post.id} />
             ))}
         </div>
     );

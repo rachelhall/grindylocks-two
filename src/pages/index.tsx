@@ -15,13 +15,10 @@ dayjs.extend(relativeTime);
 
 const CreatePostWizard = () => {
   const { user } = useUser();
-
   const { data } = api.parks.getAll.useQuery()
-
 
   const [value, setValue] = useState("");
   const [file, setFile] = useState<File>()
-  const [filePath, setFilePath] = useState("")
   const [selectedPark, setSelectedPark] = useState<string>()
 
 
@@ -99,7 +96,7 @@ const CreatePostWizard = () => {
       <input type="file" onChange={handleFileChange} />
       {data &&
         <select value={selectedPark} onChange={handleSelectPark}>
-          {data?.map(park => <option value={park.id}>{park.name}</option>)}
+          {data?.map(park => <option key={park.id} value={park.id}>{park.name}</option>)}
         </select>
       }
       {value !== "" && <button disabled={isPosting} type="submit" onClick={handleSubmit}>Submit</button>}

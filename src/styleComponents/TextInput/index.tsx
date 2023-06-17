@@ -1,6 +1,7 @@
-import React, { HTMLInputTypeAttribute } from "react";
-import { UseFormRegister } from "react-hook-form";
-import { Path } from "react-hook-form";
+import React from "react";
+import type { HTMLInputTypeAttribute } from 'react';
+import type { UseFormRegister } from "react-hook-form";
+import type { Path } from "react-hook-form";
 
 
 import styles from "./TextInput.module.scss";

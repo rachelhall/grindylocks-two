@@ -1,12 +1,10 @@
 import { v2 as cloudinary } from 'cloudinary'
-import formidable, { errors as formidableErrors } from 'formidable';
-import { parseForm } from "../../lib/parse-form";
+import formidable from 'formidable';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-// const FormidableError = formidable.errors.FormidableError
 cloudinary.config({ secure: true })
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method !== "POST") {
         res.setHeader("Allow", "POST");
         res.status(405).json({

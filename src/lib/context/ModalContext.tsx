@@ -3,8 +3,6 @@ import { Portal } from "grindylocks/utils/Portal";
 import React, { createContext } from "react";
 import { useModal } from "../hooks/useModal";
 
-
-
 interface IModalContext {
   modal: boolean;
   handleModal: (content?: JSX.Element) => void;
@@ -20,7 +18,7 @@ const ModalContext = createContext<IModalContext>({
 });
 
 const ModalProvider = ({ children }: { children: JSX.Element }) => {
-  let { modal, handleModal, modalContent } = useModal();
+  const { modal, handleModal, modalContent } = useModal();
   return (
     <ModalContext.Provider value={{ modal, handleModal, modalContent }}>
       <Portal>

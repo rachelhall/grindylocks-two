@@ -1,4 +1,5 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import type { ReactNode } from 'react'
 import { createPortal } from "react-dom";
 
 interface IProps {
@@ -15,8 +16,8 @@ export const Portal = ({ children }: IProps) => {
 
   return mounted
     ? createPortal(
-        children,
-        document.querySelector("#modal-root") as HTMLElement
-      )
+      children,
+      document.querySelector("#modal-root") as HTMLElement
+    )
     : null;
 };

@@ -49,11 +49,7 @@ export const Button: React.FC<IProps> = (props) => {
     return <Link href={linkTo}>{children}</Link>;
   }
 
-  const mainClass = clsx(styles.button, {
-    [styles.textButton]: textButton,
-    [styles.primary]: color === "primary",
-    [styles.secondary]: color === "secondary",
-  });
+  const mainClass = clsx(styles.button);
 
   return (
     <button className={mainClass} onClick={handleOnClick} type={type}>

@@ -6,8 +6,6 @@ import Image from 'next/image'
 import { PostView } from "grindylocks/components/PostView";
 import { generateSSGHelper } from "grindylocks/server/helpers/ssgHelper";
 
-type PageProps = InferGetStaticPropsType<typeof getStaticProps>
-
 const ProfileFeed = (props: { userId: string }) => {
     const { data, isLoading } = api.posts.getPostsByUserId.useQuery({ userId: props.userId })
 

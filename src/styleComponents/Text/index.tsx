@@ -1,6 +1,5 @@
 import clsx from "clsx";
 
-import utilStyles from "../../styles/utils.module.css";
 import styles from "./Text.module.scss";
 
 interface IProps {
@@ -33,28 +32,28 @@ export const Text: React.FC<IProps> = ({
           fontSize === "small"
             ? "1rem"
             : fontSize === "medium"
-            ? "1.5rem"
-            : fontSize === "large"
-            ? "1.75rem"
-            : fontSize === "huge"
-            ? "2.5rem"
-            : "unset",
+              ? "1.5rem"
+              : fontSize === "large"
+                ? "1.75rem"
+                : fontSize === "huge"
+                  ? "2.5rem"
+                  : "unset",
         fontWeight:
           fontWeight === "light"
             ? "200"
             : fontWeight === "regular"
-            ? "400"
-            : fontWeight === "bold"
-            ? "900"
-            : "400",
+              ? "400"
+              : fontWeight === "bold"
+                ? "900"
+                : "400",
 
         textTransform: uppercase ? "uppercase" : "unset",
         color:
           color === "light"
             ? "var(--light)"
             : color === "accent"
-            ? "var(--accent)"
-            : "var(--dark)",
+              ? "var(--accent)"
+              : "var(--dark)",
       }}
     >
       {children}
