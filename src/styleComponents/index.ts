@@ -1,4 +1,3 @@
-export { Avatar } from "./Avatar";
 export { Button } from "./Button";
 export { CloseModalButton } from "./CloseModalButton";
 export { CloseModalButton as CloseButton } from "./CloseModalButton";
