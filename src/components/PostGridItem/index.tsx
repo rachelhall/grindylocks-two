@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./PostGridItem.module.scss";
 import Card from "grindylocks/styleComponents/Card";
 import Image from "next/image"
-import { Post } from "@prisma/client";
+import type { Post } from "@prisma/client";
 
 interface IProps {
     post: Post

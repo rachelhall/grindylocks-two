@@ -1,7 +1,7 @@
 import React from "react";
 
 import styles from "./PostGrid.module.scss";
-import { Post } from "@prisma/client";
+import type { Post } from "@prisma/client";
 import PostGridItem from "../PostGridItem";
 
 interface IProps {

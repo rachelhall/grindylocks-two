@@ -47,7 +47,7 @@ const ProfilePage: NextPage<{ trpcState: any }> = (props) => {
 
                 </div>
                 <div className="bg-slate-600 h-48 relative">
-                    <Image src={data.profilePicture} alt={`${data.username}'s profile picture`} width={128} height={128} className="-mb-[64px] absolute bottom-0 left-0 ml-4 rounded-full border-4 border-blac" />
+                    <Image src={data.profilePicture} alt={`${data.username} profile picture`} width={128} height={128} className="-mb-[64px] absolute bottom-0 left-0 ml-4 rounded-full border-4 border-blac" />
                     {data.username}</div>
                 <ProfileFeed userId={data.id} />
             </PageLayout>

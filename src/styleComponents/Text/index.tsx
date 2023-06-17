@@ -20,8 +20,6 @@ export const Text: React.FC<IProps> = ({
   fontSize = "medium",
   fontWeight = "regular",
   uppercase = false,
-  textAlign,
-  verticalSpacing,
 }) => {
   const mainClass = clsx(className, [styles.text]);
   return (

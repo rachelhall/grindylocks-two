@@ -21,22 +21,11 @@ interface IProps extends React.HTMLProps<HTMLButtonElement> {
 
 export const Button: React.FC<IProps> = (props) => {
   const {
-    ariaLabel,
-    borderRadius = 2,
     children,
-    className,
-    color = "primary",
-    currentTabLinkTo,
     disabled,
-    inline,
-    isLoading,
     linkTo,
     onClick,
-    onMouseMove,
-    buttonSize = "medium",
-    textButton = false,
     type = "button",
-    ...buttonProps
   } = props;
 
   const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
