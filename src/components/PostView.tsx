@@ -24,6 +24,7 @@ export const PostView = (props: PostWithUser) => {
                     <Link href={`post/${post.id}`}><span>{dayjs(post.createdAt).fromNow()}</span></Link>
                 </div>
                 <span>{post.content}</span>
+                {post.filePath && <Image src={post.filePath} width={60} height={60} alt="post photo" />}
             </div>
         </div>
     );

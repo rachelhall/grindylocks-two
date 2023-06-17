@@ -16,10 +16,13 @@ model Post {
     createdAt DateTime @default(now())
 
     content  String  @db.VarChar(255)
-    userId   String
     filePath String?
+    park     Park    @relation(fields: [parkId], references: [id])
+    userId   String
+    parkId   String
 
     @@index([userId])
+    @@index([parkId])
 }
 
 enum Category {
@@ -28,6 +31,11 @@ enum Category {
     TRANSITION
     PUMP_TRACK
     SKATER_CROSS
+}
+
+enum Surface {
+    CONCRETE
+    SKATE_LITE
 }
 
 model Park {
@@ -43,7 +51,9 @@ model Park {
     country        String
     lat            String
     lng            String
+    surface        Surface?
     elements       Element[]
+    posts          Post[]
 }
 
 model Element {

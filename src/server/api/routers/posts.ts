@@ -39,17 +39,12 @@ const addUserDataToPosts = async (posts: Post[]) => {
 }
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis"
-import { uploadImage } from "../cloudinary";
+
 
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
   limiter: Ratelimit.slidingWindow(3, "1 m"),
   analytics: true,
-  /**
-   * Optional prefix for the keys used in redis. This is useful if you want to share a redis
-   * instance with other applications and want to avoid key collisions. The default prefix is
-   * "@upstash/ratelimit"
-   */
   prefix: "@upstash/ratelimit",
 });
 
@@ -82,26 +77,35 @@ export const postsRouter = createTRPCRouter({
     take: 100,
     orderBy: [{ createdAt: "desc" }]
   }).then(addUserDataToPosts)
-
   ),
 
-  create: privateProcedure.input(z.object({ content: z.string().min(1).max(280), filePath: z.string() })).mutation(async ({ ctx, input }) => {
+  getPostsByParkId: publicProcedure.input(z.object({
+    parkId: z.string()
+  })).query(({ ctx, input }) => ctx.prisma.post.findMany({
+    where: {
+      parkId: input.parkId
+    }
+  })),
+
+  create: privateProcedure.input(z.object({ content: z.string().min(1).max(280), filePath: z.string(), parkId: z.string() })).mutation(async ({ ctx, input }) => {
     const userId = ctx.userId
 
     const { success } = await ratelimit.limit(userId)
 
     if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" })
 
-    const image_id = uploadImage(input.filePath)
-    console.log(image_id)
 
-    // const post = await ctx.prisma.post.create({
-    //   data: {
-    //     userId,
-    //     content: input.content,
-    //     filePath: input.filePath
-    //   }
-    // })
-    // return post
+
+    const post = await ctx.prisma.post.create({
+      data: {
+        userId,
+        content: input.content,
+        filePath: input.filePath,
+        parkId: input.parkId
+      }
+    })
+    return post
   })
+
+
 });
