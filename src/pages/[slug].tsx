@@ -25,12 +25,9 @@ const ProfileFeed = (props: { userId: string }) => {
             })}
         </div>
     )
-
-
-
 }
 
-const ProfilePage: NextPage = (props) => {
+const ProfilePage: NextPage<{ trpcState: any }> = (props) => {
     const username = props.trpcState.json.queries[0].state.data.username;
 
     const { data, isLoading } = api.profile.getUserByUsername.useQuery({ username })
