@@ -26,7 +26,7 @@ export const NewPostForm: React.FC<IProps> = (props) => {
     const { } = props;
 
     const { data: parks } = api.parks.getAll.useQuery()
-    const { handleSubmit, register, watch, formState: { errors } } = useForm<TFormInput>();
+    const { handleSubmit, register, watch } = useForm<TFormInput>();
     const { handleModal } = useContext(ModalContext);
     const files = watch('files')
     const previewUrl = files && files[0] ? URL.createObjectURL(files[0]) : null
@@ -42,7 +42,7 @@ export const NewPostForm: React.FC<IProps> = (props) => {
 
 
 
-    const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
+    const { mutate, isLoading: _isPosting } = api.posts.create.useMutation({
         onError: (e) => {
             const errorMessage = e.data?.zodError?.fieldErrors.content;
             if (errorMessage && errorMessage[0]) {

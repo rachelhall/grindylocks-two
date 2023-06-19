@@ -14,9 +14,6 @@ const roboto = Roboto({
     display: 'swap',
 })
 
-interface IProps {
-
-}
 
 export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
 

@@ -19,12 +19,12 @@ interface IProps {
 export const NewAccountForm: React.FC<IProps> = (props) => {
     const { } = props;
 
-    const { handleSubmit, register, watch, formState: { errors } } = useForm<TFormInput>();
+    const { handleSubmit, register } = useForm<TFormInput>();
     const { isLoaded, signUp, setActive } = useSignUp();
-    const [emailAddress, setEmailAddress] = useState("");
-    const [password, setPassword] = useState("");
+    const [emailAddress, _setEmailAddress] = useState("");
+    const [password, _setPassword] = useState("");
     const [pendingVerification, setPendingVerification] = useState(false);
-    const [code, setCode] = useState("");
+    const [code, _setCode] = useState("");
     const router = useRouter();
     // start the sign up process.
     const onHandleSubmit: SubmitHandler<TFormInput> = async () => {
