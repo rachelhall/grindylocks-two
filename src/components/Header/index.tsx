@@ -33,7 +33,7 @@ export const Header: React.FC<IProps> = (props) => {
             <NavBar />
             <div className={styles.account}>
                 {user && <Avatar src={user.profileImageUrl} username={user.username ?? ""} />}
-                <Button onClick={handleSignUp}>Sign Up</Button>
+                {/* <Button onClick={handleSignUp}>Sign Up</Button> */}
                 {!isSignedIn ? <SignInButton /> : <SignOutButton />}
             </div>
 

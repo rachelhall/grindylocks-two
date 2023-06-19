@@ -7,6 +7,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { PostView } from "grindylocks/components/PostView";
+import Feed from "grindylocks/components/Feed";
 
 
 dayjs.extend(relativeTime);
@@ -116,9 +117,7 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex flex-col">
-      {data?.map((post) => (
-        <PostView {...post} key={post.post.id} />
-      ))}
+      <Feed />
     </div>
   );
 };
