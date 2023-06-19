@@ -1,10 +1,16 @@
 @use "../../styles/mixins" as mixins;
 
 .Card {
+  position: relative;
   max-width: 470px;
   background: var(--light);
   border-radius: 0.5rem;
   overflow: hidden;
   margin: 1rem 0;
   @include mixins.shadow;
+}
+
+.small {
+  height: 300px;
+  width: 300px;
 }

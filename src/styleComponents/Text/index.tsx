@@ -16,8 +16,8 @@ interface IProps {
 export const Text: React.FC<IProps> = ({
   children,
   className,
-  color = "light",
-  fontSize = "medium",
+  color = "black",
+  fontSize = "small",
   fontWeight = "regular",
   uppercase = false,
 }) => {
@@ -42,7 +42,7 @@ export const Text: React.FC<IProps> = ({
             : fontWeight === "regular"
               ? "400"
               : fontWeight === "bold"
-                ? "900"
+                ? "600"
                 : "400",
 
         textTransform: uppercase ? "uppercase" : "unset",
@@ -50,7 +50,7 @@ export const Text: React.FC<IProps> = ({
           color === "light"
             ? "var(--light)"
             : color === "accent"
-              ? "var(--accent)"
+              ? "var(--pink)"
               : "var(--dark)",
       }}
     >
@@ -58,3 +58,5 @@ export const Text: React.FC<IProps> = ({
     </p>
   );
 };
+
+export default Text;

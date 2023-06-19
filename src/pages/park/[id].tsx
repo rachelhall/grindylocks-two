@@ -1,13 +1,12 @@
 import { generateSSGHelper } from "grindylocks/server/helpers/ssgHelper";
 import { api } from "grindylocks/utils/api"
-import { GetStaticProps, NextPage } from "next";
-import Image from "next/image"
+import { type GetStaticProps, type NextPage } from "next";
 import { Text } from "../../styleComponents"
 import PostGrid from "grindylocks/components/PostGrid";
 
 const SingleParkPage: NextPage<{ id: string }> = ({ id }) => {
-    const { data: postData } = api.posts.getPostsByParkId.useQuery({ parkId: id })
     const { data, isLoading } = api.parks.getById.useQuery({ id: id })
+    const postData = data?.posts
 
     if (isLoading) return <div>Loading...</div>
     if (!data) return <div>404</div>

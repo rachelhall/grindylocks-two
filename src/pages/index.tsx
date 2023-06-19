@@ -1,15 +1,13 @@
-
 import { type NextPage } from "next";
 import Image from "next/image";
-import { api, type RouterOutputs } from "grindylocks/utils/api";
+import { api, } from "grindylocks/utils/api";
 import { SignInButton, SignOutButton, useUser } from "@clerk/clerk-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
-import { PageLayout } from "grindylocks/components/layout";
 import { PostView } from "grindylocks/components/PostView";
-import { Park } from "@prisma/client";
+
 
 dayjs.extend(relativeTime);
 
@@ -110,31 +108,18 @@ const CreatePostWizard = () => {
 const Home: NextPage = () => {
   const user = useUser();
 
-  const { data } = api.posts.getAll.useQuery();
+  const { data, isLoading } = api.posts.getAll.useQuery();
 
-  // if (!data) {
-  //   return <div>Loading...</div>;
-  // }
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <PageLayout>
-      {!user.isSignedIn ? (
-        <div className="flex justify-center">
-          <SignInButton />
-        </div>
-      ) : (
-        <div className="flex justify-center">
-          <SignOutButton />
-        </div>
-      )}
-
-      {!!user.isSignedIn && <CreatePostWizard />}
-      <div className="flex flex-col">
-        {data?.map((post) => (
-          <PostView {...post} key={post.post.id} />
-        ))}
-      </div>
-    </PageLayout>
+    <div className="flex flex-col">
+      {data?.map((post) => (
+        <PostView {...post} key={post.post.id} />
+      ))}
+    </div>
   );
 };
 

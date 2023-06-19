@@ -1,10 +1,10 @@
 import { api } from "grindylocks/utils/api";
-import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
-import Head from "next/head";
-import { PageLayout } from "grindylocks/components/layout";
-import Image from 'next/image'
+import type { GetStaticProps, NextPage } from "next";
 import { PostView } from "grindylocks/components/PostView";
 import { generateSSGHelper } from "grindylocks/server/helpers/ssgHelper";
+import PostGrid from "grindylocks/components/PostGrid";
+import styles from "./Profile.module.scss"
+import { ProfileDetails } from "grindylocks/components/ProfileDetails";
 
 const ProfileFeed = (props: { userId: string }) => {
     const { data, isLoading } = api.posts.getPostsByUserId.useQuery({ userId: props.userId })
@@ -29,6 +29,8 @@ const ProfilePage: NextPage<{ trpcState: any }> = (props) => {
     const username = props.trpcState.json.queries[0].state.data.username;
 
     const { data, isLoading } = api.profile.getUserByUsername.useQuery({ username })
+    const { data: postData, isLoading: postIsLoading } = api.posts.getPostsByUserId.useQuery({ userId: data?.id ?? "" })
+    const posts = postData?.map(post => post.post) ?? []
 
     if (isLoading) {
         return <div>"Loading..."</div>
@@ -38,20 +40,11 @@ const ProfilePage: NextPage<{ trpcState: any }> = (props) => {
         return <div>404</div>
     }
     return (
-        <>
-            <Head>
-                <title>Post</title>
-            </Head>
-            <PageLayout>
-                <div>
+        <div className={styles.Profile}>
+            <ProfileDetails profile={data} />
+            {postData && <PostGrid posts={posts} />}
+        </div>
 
-                </div>
-                <div className="bg-slate-600 h-48 relative">
-                    <Image src={data.profilePicture} alt={`${data.username} profile picture`} width={128} height={128} className="-mb-[64px] absolute bottom-0 left-0 ml-4 rounded-full border-4 border-blac" />
-                    {data.username}</div>
-                <ProfileFeed userId={data.id} />
-            </PageLayout>
-        </>
     )
 
 }

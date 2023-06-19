@@ -1,4 +1,4 @@
-import { RouterOutputs } from "grindylocks/utils/api";
+import { type RouterOutputs } from "grindylocks/utils/api";
 import Image from "next/image"
 import Link from 'next/link'
 import dayjs from 'dayjs'
@@ -20,7 +20,7 @@ export const PostView = (props: PostWithUser) => {
             />
             <div className="flex flex-col">
                 <div className="flex text-slate-300">
-                    <Link href={`@${user.username}`}> <span>{`@${user.username}`}</span></Link>  •
+                    <Link href={`profile/@${user.username}`}> <span>{`@${user.username}`}</span></Link>  •
                     <Link href={`post/${post.id}`}><span>{dayjs(post.createdAt).fromNow()}</span></Link>
                 </div>
                 <span>{post.content}</span>

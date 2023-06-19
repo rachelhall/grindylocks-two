@@ -1,0 +1,17 @@
+.NavBar {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon {
+    height: 3rem;
+    width: 3rem;
+    margin: 0 1rem;
+    color: var(--dark);
+
+    &:hover {
+        color: var(--lapis-lazuli)
+    }
+}

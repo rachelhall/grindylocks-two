@@ -1,0 +1,38 @@
+.FeedPost {
+    border-bottom: 2px solid #dbdbdb;
+    margin: 1rem 0;
+    padding: 1rem 0;
+}
+
+.header {
+    display: flex;
+    margin: .5rem 0;
+    align-items: center;
+
+
+}
+
+
+.imageContainer {
+    height: 450px;
+    width: 450px;
+    position: relative;
+}
+
+.name {
+    display: flex;
+    margin-left: .5rem;
+
+    &>* {
+        margin: 0 .25rem;
+    }
+}
+
+.content {
+    margin: 1rem 0;
+    display: flex;
+
+    &>* {
+        margin: 0 .175rem;
+    }
+}

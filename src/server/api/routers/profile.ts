@@ -4,6 +4,9 @@ import { clerkClient } from "@clerk/nextjs";
 import { TRPCError } from "@trpc/server";
 import { filterUserForClient } from "grindylocks/server/helpers/filterUserForClient";
 
+
+
+
 export const profileRouter = createTRPCRouter({
     getUserByUsername: publicProcedure.input(z.object({ username: z.string() })).query(async ({ input }) => {
         const [user] = await clerkClient.users.getUserList({

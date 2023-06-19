@@ -1,5 +1,4 @@
 import { PostView } from "grindylocks/components/PostView";
-import { PageLayout } from "grindylocks/components/layout";
 import { generateSSGHelper } from "grindylocks/server/helpers/ssgHelper";
 import { api } from "grindylocks/utils/api";
 import type { GetStaticProps, NextPage } from "next";
@@ -14,9 +13,9 @@ const SinglePostPage: NextPage<{ id: string }> = ({ id }) => {
             <Head>
                 <title>Post</title>
             </Head>
-            <PageLayout>
-                <PostView {...data} />
-            </PageLayout>
+
+            <PostView {...data} />
+
         </>
 
     )

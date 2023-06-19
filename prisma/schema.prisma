@@ -14,12 +14,11 @@ generator client {
 model Post {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
-
-    content  String  @db.VarChar(255)
-    filePath String?
-    park     Park    @relation(fields: [parkId], references: [id])
-    userId   String
-    parkId   String
+    content   String   @db.VarChar(255)
+    filePath  String?
+    park      Park     @relation(fields: [parkId], references: [id])
+    userId    String
+    parkId    String
 
     @@index([userId])
     @@index([parkId])
@@ -36,10 +35,24 @@ enum Category {
 enum Surface {
     CONCRETE
     SKATE_LITE
+    DIY
+}
+
+model Account {
+    id String @id @default(cuid())
+}
+
+model ParkPrimaryMedia {
+    id     String  @id @default(cuid())
+    url    String
+    Park   Park?   @relation(fields: [parkId], references: [id])
+    parkId String?
+
+    @@index([parkId])
 }
 
 model Park {
-    id             String    @id @default(cuid())
+    id             String             @id @default(cuid())
     name           String
     description    String
     address_number String
@@ -54,6 +67,7 @@ model Park {
     surface        Surface?
     elements       Element[]
     posts          Post[]
+    media          ParkPrimaryMedia[]
 }
 
 model Element {

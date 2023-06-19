@@ -1,6 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary'
 import formidable from 'formidable';
-import { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 cloudinary.config({ secure: true })
 
@@ -15,7 +15,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
     }
     try {
         const form = formidable({ maxFiles: 1 })
-        form.parse(req, (err, fields, files) => {
+        form.parse(req, (err, _fields, files) => {
             if (err) {
                 res.writeHead(err.httpCode || 400, { 'Content-Type': 'text/plain' });
                 res.end(String(err));

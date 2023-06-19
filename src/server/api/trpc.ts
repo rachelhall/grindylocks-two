@@ -104,7 +104,7 @@ const enforceUserIsAuth = t.middleware(async ({ ctx, next }) => {
     })
   }
 
-  return next({
+  return await next({
     ctx: {
       userId: ctx.userId
     }

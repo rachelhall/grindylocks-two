@@ -1,9 +1,9 @@
 import { Modal } from "grindylocks/styleComponents";
 import { Portal } from "grindylocks/utils/Portal";
-import React, { createContext } from "react";
+import React, { type PropsWithChildren, createContext } from "react";
 import { useModal } from "../hooks/useModal";
 
-interface IModalContext {
+interface IModalContext extends PropsWithChildren {
   modal: boolean;
   handleModal: (content?: JSX.Element) => void;
   modalContent: JSX.Element | undefined;

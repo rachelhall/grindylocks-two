@@ -4,7 +4,7 @@
   margin: 0.5rem 0;
   border: none;
   border-radius: 0.5rem;
-  background-color: var(--accent);
+  background-color: var(--pink);
   color: var(--light);
   text-transform: uppercase;
   height: 3rem;
@@ -28,9 +28,11 @@
 .small {
   width: 10rem;
 }
+
 .medium {
   width: 15rem;
 }
+
 .large {
   width: 20rem;
 }
@@ -52,7 +54,7 @@
 }
 
 .secondary {
-  background-color: var(--accent);
+  background-color: var(--pink);
   color: var(--light);
 }
 

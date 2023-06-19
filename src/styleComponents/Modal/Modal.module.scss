@@ -1,6 +1,7 @@
 .Modal {
   position: fixed;
-  inset: 0; /* inset sets all 4 values (top right bottom left) much like how we set padding, margin etc., */
+  inset: 0;
+  /* inset sets all 4 values (top right bottom left) much like how we set padding, margin etc., */
   background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
@@ -13,8 +14,8 @@
 }
 
 .modalInner {
-  width: 70%;
-  height: 70%;
+  height: 600px;
+  width: 800px;
   border-radius: 1rem;
   background-color: white;
   color: var(--dark);
@@ -23,4 +24,13 @@
   justify-content: center;
   font-size: 2rem;
   position: relative;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }

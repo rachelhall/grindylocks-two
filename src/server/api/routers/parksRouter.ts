@@ -5,6 +5,7 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis"
 
 
+
 const ratelimit = new Ratelimit({
     redis: Redis.fromEnv(),
     limiter: Ratelimit.slidingWindow(3, "1 m"),
@@ -14,7 +15,7 @@ const ratelimit = new Ratelimit({
 
 export const parksRouter = createTRPCRouter({
     getById: publicProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
-        const park = await ctx.prisma.park.findUnique({ where: { id: input.id } })
+        const park = await ctx.prisma.park.findUnique({ where: { id: input.id }, include: { media: true, posts: true } })
         if (!park) throw new TRPCError({ code: "NOT_FOUND" })
         return park
     }),
@@ -23,6 +24,7 @@ export const parksRouter = createTRPCRouter({
     getAll: publicProcedure.query(async ({ ctx }) => {
         const parks = await ctx.prisma.park.findMany({
             take: 100,
+            include: { media: true }
         });
         return parks
     }),

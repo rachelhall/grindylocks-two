@@ -1,22 +1,26 @@
 import { api } from "grindylocks/utils/api"
-import { NextPage } from "next";
+import { type NextPage } from "next";
 import { Text } from "../../styleComponents"
 import Link from "next/link";
+import MediaCard from "grindylocks/styleComponents/MediaCard";
 
-const AllParksPage: NextPage = () => {
+import styles from "./Parks.module.scss"
+
+const Parks: NextPage = () => {
     const { data } = api.parks.getAll.useQuery()
 
+
     return (
-        <div>
+        <div className={styles.Parks}>
             {data?.map(park => {
-                console.log(park.id)
-                return (<div key={park.id}>
+
+                return (<div key={park.id} className={styles.parkPreview}>
                     <Link href={`park/${park.id}`}>
-                        <Text fontSize="large">{park.name}</Text>
+                        {park.media[0]?.url && <MediaCard src={park.media[0]?.url} />}
+                        <Text fontSize="medium" fontWeight="bold">{park.name}</Text>
+                        <Text fontSize="small">{park.description}</Text>
+                        <Text fontSize="small">{`${park.city}, ${park.region}`}</Text>
                     </Link>
-                    <p></p>
-                    <p>{park.description}</p>
-                    <p>{park.city}, {park.region}</p>
                 </div>
                 )
             })}
@@ -24,4 +28,4 @@ const AllParksPage: NextPage = () => {
     )
 }
 
-export default AllParksPage;
+export default Parks;

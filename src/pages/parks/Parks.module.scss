@@ -1,0 +1,10 @@
+.Parks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.parkPreview {
+    width: 300px;
+    overflow-wrap: break-word;
+}
