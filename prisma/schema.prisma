@@ -48,9 +48,9 @@ enum Wheel {
 }
 
 model Business {
-    id          String   @id @default(cuid())
+    id          String    @id @default(cuid())
     name        String
-    team_riders Account? @relation(fields: [accountId], references: [id])
+    team_riders Account[]
     accountId   String?
 
     @@index([accountId])

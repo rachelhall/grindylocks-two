@@ -2,15 +2,16 @@ import { api } from "grindylocks/utils/api";
 import type { GetStaticProps, NextPage } from "next";
 
 import { generateSSGHelper } from "grindylocks/server/helpers/ssgHelper";
-import PostGrid from "grindylocks/components/PostGrid";
-import styles from "./Profile.module.scss"
-import { ProfileDetails } from "grindylocks/components/ProfileDetails";
+import styles from "./Business.module.scss"
+import BusinessDetails from "grindylocks/components/BusinessDetails";
 
 
-const ProfilePage: NextPage<{ trpcState: any }> = (props) => {
-    const username = props.trpcState.json.queries[0].state.data.username;
 
-    const { data, isLoading } = api.business.getBusinessById.useQuery({ id })
+const BusinessPage: NextPage<{ trpcState: any }> = (props) => {
+    const business_id = props.trpcState.json.queries[0].state.data.id;
+
+
+    const { data, isLoading } = api.business.getBusinessById.useQuery({ id: business_id })
     const { data: postData, isLoading: postIsLoading } = api.posts.getPostsByUserId.useQuery({ userId: data?.id ?? "" })
     const posts = postData?.map(post => post.post) ?? []
 
@@ -21,10 +22,11 @@ const ProfilePage: NextPage<{ trpcState: any }> = (props) => {
     if (!data) {
         return <div>404</div>
     }
+
     return (
         <div className={styles.Profile}>
-            <ProfileDetails account={data} posts={data.posts} sponsors={data.sponsors} />
-            {postData && <PostGrid posts={data.posts} />}
+            <BusinessDetails business={data} riders={data.team_riders} />
+
         </div>
 
     )
@@ -37,16 +39,19 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     const slug = context?.params?.slug;
 
+
     if (typeof slug !== "string") throw new Error("no slug")
 
-    const username = slug?.replace("@", "")
+    const business_id = slug
+    console.log(business_id)
 
-    await ssg.profile.getUserByUsername.prefetch({ username: username })
+
+    await ssg.business.getBusinessById.prefetch({ id: business_id })
 
     return {
         props: {
             trpcState: ssg.dehydrate(),
-            username
+            business_id,
         }
     }
 }
@@ -58,4 +63,4 @@ export const getStaticPaths = () => {
     }
 }
 
-export default ProfilePage; 
+export default BusinessPage; 

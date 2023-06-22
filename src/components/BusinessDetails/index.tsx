@@ -2,28 +2,34 @@ import React from "react";
 import { Text } from 'grindylocks/styleComponents'
 import pluralize from "pluralize"
 
-import style from "./ProfileDetails.module.scss";
+import style from "./BusinessDetails.module.scss";
 import Avatar from "grindylocks/styleComponents/Avatar";
 import { Account, Business, Post } from "@prisma/client";
 import Link from "next/link";
 
 interface IProps {
-    account: Account;
-    posts: Post[];
-    sponsors: Business[]
+    business: Business;
+    riders: Account[]
+
 }
 
 
 
-export const ProfileDetails: React.FC<IProps> = (props) => {
-    const { account, posts, sponsors } = props;
-
+export const BusinessDetails: React.FC<IProps> = (props) => {
+    const { business, riders } = props;
     return (
-        <div className={style.ProfileDetails}>
-            {account.profilePicture && <Avatar className={style.avatar} size="large" src={account.profilePicture} username={account.username ?? ""} />}
+        <div className={style.BusinessDetails}>
+            {/* {account.profilePicture && <Avatar className={style.avatar} size="large" src={account.profilePicture} username={account.username ?? ""} />} */}
             <div className={style.details}>
-                <Text fontSize="medium">{`${account.username}`}</Text>
-                <div className={style.postCount}>
+                <Text fontSize="medium">{`${business.name}`}</Text>
+                <Text fontSize="medium" fontWeight="bold">Riders:</Text>
+                {riders.map(rider => (
+                    <Link href={`/profile/@${rider.username}`}>
+                        <Text>{rider.first_name ?? ""}</Text>
+                    </Link>
+                ))}
+
+                {/* <div className={style.postCount}>
                     <Text fontWeight="bold">{`${posts.length}`}</Text>
                     <Text>{`${pluralize('post', posts.length)}`}</Text>
                 </div>
@@ -36,10 +42,10 @@ export const ProfileDetails: React.FC<IProps> = (props) => {
                     ))}
                 </div>)}
                 <Text fontWeight="bold">{`${account.first_name ?? ""} ${account.last_name ?? ""}`}</Text>
-                <Text>{account.bio ?? ""}</Text>
+                <Text>{account.bio ?? ""}</Text> */}
             </div>
         </div>
     );
 };
 
-export default ProfileDetails;
+export default BusinessDetails;
