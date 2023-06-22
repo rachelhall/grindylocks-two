@@ -18,10 +18,13 @@ model Post {
     filePath  String?
     park      Park     @relation(fields: [parkId], references: [id])
     userId    String
+    account   Account? @relation(fields: [accountId], references: [id])
     parkId    String
+    accountId String?
 
     @@index([userId])
     @@index([parkId])
+    @@index([accountId])
 }
 
 enum Category {
@@ -38,10 +41,44 @@ enum Surface {
     DIY
 }
 
+enum Wheel {
+    QUADS
+    BLADES
+    SKATEBOARD
+}
+
+model Business {
+    id          String   @id @default(cuid())
+    name        String
+    team_riders Account? @relation(fields: [accountId], references: [id])
+    accountId   String?
+
+    @@index([accountId])
+}
+
 model Account {
-    id     String @id @default(cuid())
-    userId String
-    email  String
+    id             String     @id @default(cuid())
+    userId         String     @unique
+    email          String
+    username       String?    @unique
+    first_name     String?
+    last_name      String?
+    bio            String?
+    pronouns       String?
+    local          Park?      @relation(fields: [parkId], references: [id])
+    city           String?
+    region         String?
+    region_code    String?
+    sponsors       Business[]
+    wheels         Wheel?
+    friends        Account[]  @relation("friends")
+    friendsOf      Account[]  @relation("friends")
+    parkId         String?
+    tricks         Trick[]
+    profilePicture String?
+    posts          Post[]
+
+    @@index([parkId])
 }
 
 model ParkPrimaryMedia {
@@ -51,6 +88,17 @@ model ParkPrimaryMedia {
     parkId String?
 
     @@index([parkId])
+}
+
+model Trick {
+    id          String  @id @default(cuid())
+    name        String
+    description String?
+
+    Account   Account? @relation(fields: [accountId], references: [id])
+    accountId String?
+
+    @@index([accountId])
 }
 
 model Park {
@@ -70,6 +118,7 @@ model Park {
     elements       Element[]
     posts          Post[]
     media          ParkPrimaryMedia[]
+    Account        Account[]
 }
 
 model Element {

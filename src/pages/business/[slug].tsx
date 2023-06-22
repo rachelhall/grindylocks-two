@@ -10,11 +10,9 @@ import { ProfileDetails } from "grindylocks/components/ProfileDetails";
 const ProfilePage: NextPage<{ trpcState: any }> = (props) => {
     const username = props.trpcState.json.queries[0].state.data.username;
 
-    const { data, isLoading } = api.account.getAccountByUsername.useQuery({ username })
+    const { data, isLoading } = api.business.getBusinessById.useQuery({ id })
     const { data: postData, isLoading: postIsLoading } = api.posts.getPostsByUserId.useQuery({ userId: data?.id ?? "" })
     const posts = postData?.map(post => post.post) ?? []
-
-    console.log(data)
 
     if (isLoading) {
         return <div>Loading...</div>

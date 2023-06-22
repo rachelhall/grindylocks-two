@@ -1,32 +1,36 @@
 import React from "react";
-import Image from "next/image"
 import { Text } from 'grindylocks/styleComponents'
+import pluralize from "pluralize"
 
 import style from "./ProfileDetails.module.scss";
 import Avatar from "grindylocks/styleComponents/Avatar";
+import { Account, Business, Post } from "@prisma/client";
 
 interface IProps {
-    profile: {
-        id: string;
-        username: string | null;
-        profilePicture: string;
-    }
+    account: Account;
+    posts: Post[];
+    sponsors: Business[]
 }
 
-const account = {
-    name: "Rachel Raspberry",
-    bio: "Musician. Software Developer. Rollerblader. Cat Mom."
-}
+
 
 export const ProfileDetails: React.FC<IProps> = (props) => {
-    const { profile } = props;
+    const { account, posts, sponsors } = props;
 
     return (
         <div className={style.ProfileDetails}>
-            <Avatar src={profile.profilePicture} username={profile.username ?? ""} />
+            {account.profilePicture && <Avatar className={style.avatar} size="large" src={account.profilePicture} username={account.username ?? ""} />}
             <div className={style.details}>
-                <Text>{`@${profile.username}`}</Text>
-                <Text fontWeight="bold">{account.name ?? ""}</Text>
+                <Text fontSize="medium">{`${account.username}`}</Text>
+                <div className={style.postCount}>
+                    <Text fontWeight="bold">{`${posts.length}`}</Text>
+                    <Text>{`${pluralize('post', posts.length)}`}</Text>
+                </div>
+                {sponsors.length > 0 && (<div className={style.sponsors}>
+                    <Text fontWeight="bold">Team: </Text>
+                    <Text>{sponsors.map(sponsor => sponsor.name).join(" ")}</Text>
+                </div>)}
+                <Text fontWeight="bold">{`${account.first_name ?? ""} ${account.last_name ?? ""}`}</Text>
                 <Text>{account.bio ?? ""}</Text>
             </div>
         </div>

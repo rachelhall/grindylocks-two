@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import styles from "./Header.module.scss";
 import { Button, Text } from "grindylocks/styleComponents";
-import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
+import { SignInButton, SignOutButton, SignUpButton, useUser } from "@clerk/nextjs";
 import Image from 'next/image'
 
 import NavBar from "../NavBar";
@@ -32,9 +32,10 @@ export const Header: React.FC<IProps> = (props) => {
             </Link>
             <NavBar />
             <div className={styles.account}>
-                {user && <Avatar src={user.profileImageUrl} username={user.username ?? ""} />}
-                {/* <Button onClick={handleSignUp}>Sign Up</Button> */}
-                {!isSignedIn ? <SignInButton /> : <SignOutButton />}
+                {user && <Link href={`/profile/@${user.username}`}>
+                    <Avatar src={user.profileImageUrl} username={user.username ?? ""} />
+                </Link>}
+                {!isSignedIn ? <span><SignInButton /> <SignUpButton /></span> : <SignOutButton />}
             </div>
 
         </header>

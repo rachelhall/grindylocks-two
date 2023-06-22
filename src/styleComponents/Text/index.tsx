@@ -5,7 +5,7 @@ import styles from "./Text.module.scss";
 interface IProps {
   children?: JSX.Element | string;
   className?: string;
-  color?: "dark" | "light" | "accent";
+  color?: "black" | "dark" | "light" | "accent";
   fontSize?: "small" | "medium" | "large" | "huge";
   fontWeight?: "light" | "regular" | "bold";
   uppercase?: boolean;
@@ -51,7 +51,7 @@ export const Text: React.FC<IProps> = ({
             ? "var(--light)"
             : color === "accent"
               ? "var(--pink)"
-              : "var(--dark)",
+              : "var(--black)",
       }}
     >
       {children}

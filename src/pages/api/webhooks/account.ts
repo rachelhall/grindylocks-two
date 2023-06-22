@@ -4,9 +4,6 @@ import { Webhook, WebhookRequiredHeaders } from "svix";
 import { buffer } from "micro";
 import { prisma } from "grindylocks/server/db";
 
-
-// Disable the bodyParser so we can access the raw
-// request body for verification.
 export const config = {
     api: {
         bodyParser: false,
@@ -19,41 +16,39 @@ export default async function handler(
     req: NextApiRequestWithSvixRequiredHeaders,
     res: NextApiResponse
 ) {
-
-    console.log(req, 'event received')
-    // Verify the webhook signature
-    // See https://docs.svix.com/receiving/verifying-payloads/how
-    //     const payload = (await buffer(req)).toString();
-    //     const headers = req.headers;
-    //     const wh = new Webhook(webhookSecret);
-    //     let evt: Event | null = null;
-    //     try {
-    //         evt = wh.verify(payload, headers) as Event;
-    //     } catch (_) {
-    //         return res.status(400).json({});
-    //     }
+    const payload = (await buffer(req)).toString();
+    const headers = req.headers;
+    const wh = new Webhook(webhookSecret);
+    let evt: Event | null = null;
+    try {
+        evt = wh.verify(payload, headers) as Event;
+    } catch (_) {
+        return res.status(400).json({});
+    }
 
 
-    //     // Handle the webhook
-    //     const eventType: EventType = evt.type;
-    //     if (eventType === "user.created" || eventType === "user.updated") {
-    //         const { id, email } = evt.data;
-    //         await prisma.account.create({ data: { userId: id as string, email: email as string } });
-    //     }
+    const eventType: EventType = evt.type;
+    if (eventType === "user.created" || eventType === "user.updated") {
+        console.log(evt.data)
+        const { id } = evt.data;
+        if (!evt.data.email_addresses[0]) throw new Error("Email required")
+        const email = evt.data.email_addresses[0].email_address
+        const username = evt.data.username
+        const account = await prisma.account.create({ data: { userId: id, email, username } });
+        res.status(200).json(account)
+    }
 
-    //     res.json({});
+    else res.status(400).json("Event must be user.created")
 }
 
 type NextApiRequestWithSvixRequiredHeaders = NextApiRequest & {
     headers: IncomingHttpHeaders & WebhookRequiredHeaders;
 };
 
-// // Generic (and naive) way for the Clerk event
-// // payload type.
-// type Event = {
-//     data: Record<string, string | number>;
-//     object: "event";
-//     type: EventType;
-// };
+type Event = {
+    data: { id: string; email_addresses: { email_address: string }[], username: string };
+    object: "event";
+    type: EventType;
+};
 
-// type EventType = "user.created" | "user.updated" | "*";
+type EventType = "user.created" | "user.updated" | "*";

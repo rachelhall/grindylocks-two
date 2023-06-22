@@ -1,3 +1,28 @@
 .ProfileDetails {
     display: flex;
 }
+
+.avatar {
+    margin-right: 6rem;
+}
+
+.details {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.postCount {
+    display: flex;
+
+    :first-child {
+        margin-right: .5rem;
+    }
+}
+
+.sponsors {
+    display: flex;
+
+    :first-child {
+        margin-right: .5rem;
+    }
+}
