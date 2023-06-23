@@ -12,9 +12,6 @@ const ProfilePage: NextPage<{ trpcState: any }> = (props) => {
 
     const { data, isLoading } = api.account.getAccountByUsername.useQuery({ username })
     const { data: postData, isLoading: postIsLoading } = api.posts.getPostsByUserId.useQuery({ userId: data?.id ?? "" })
-    const posts = postData?.map(post => post.post) ?? []
-
-    console.log(data)
 
     if (isLoading) {
         return <div>Loading...</div>
