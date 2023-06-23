@@ -21,7 +21,7 @@ export const BusinessDetails: React.FC<IProps> = (props) => {
         <div className={style.BusinessDetails}>
             {/* {account.profilePicture && <Avatar className={style.avatar} size="large" src={account.profilePicture} username={account.username ?? ""} />} */}
             <div className={style.details}>
-                <Text fontSize="medium">{`${business.name}`}</Text>
+                <Text fontSize="large">{`${business.name}`}</Text>
                 <Text fontSize="medium" fontWeight="bold">Riders:</Text>
                 {riders.map(rider => (
                     <Link href={`/profile/@${rider.username}`} key={rider.id}>
