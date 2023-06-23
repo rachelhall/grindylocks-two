@@ -7,8 +7,12 @@
 }
 
 .details {
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
+    // display: grid;
+    // grid-template-rows: 1fr 1fr 1fr;
+
+    &>* {
+        margin: 2rem 0;
+    }
 }
 
 .postCount {
@@ -24,5 +28,22 @@
 
     :first-child {
         margin-right: .5rem;
+    }
+}
+
+.riders {}
+
+.riderCards {
+    display: flex;
+
+    &>* {
+        margin-right: .5rem;
+    }
+}
+
+.names {
+    &:hover {
+        color: var(--pink);
+        font-weight: bold;
     }
 }

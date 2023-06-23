@@ -5,7 +5,6 @@ import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 
 const SinglePostPage: NextPage<{ id: string }> = ({ id }) => {
-    console.log({ id })
     const { data } = api.posts.getById.useQuery({ id })
     if (!data) return <div>404</div>
     return (

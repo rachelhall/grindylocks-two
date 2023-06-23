@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "./FeedPost.module.scss";
 import Image from 'next/image'
-import { Post } from "@prisma/client";
+import { Account, Park, Post } from "@prisma/client";
 import { Text } from "grindylocks/styleComponents"
 import Link from "next/link";
 import dayjs from 'dayjs'
@@ -12,30 +12,42 @@ import Avatar from "grindylocks/styleComponents/Avatar";
 dayjs.extend(relativeTime)
 
 interface IProps {
-    post: Post;
-    user: any;
+    account: Account | null;
+    content: string;
+    createdAt: Date;
+    filePath: string | null;
+    id: string;
+    park: Park;
+    userId: string;
+    businessId?: string
 }
 
 export const FeedPost: React.FC<IProps> = (props) => {
-    const { post, user } = props;
-    if (!post.filePath) return;
+    console.log(props)
+    const { account, content, createdAt, filePath, id, park } = props;
+
+
+    if (!filePath || !account) return;
 
     return (
         <div className={styles.FeedPost}>
             <div className={styles.header}>
-                <Avatar src={user.profilePicture} username={user.username} size="x-small" />
-                <div className={styles.name}>
-                    <Link href={`profile/@${user.username}`}> <Text fontWeight="bold">{`@${user.username}`}</Text></Link>  •
-                    <Link href={`post/${post.id}`}><Text>{dayjs(post.createdAt).fromNow()}</Text></Link>
+                <Avatar src={account.profilePicture ?? ""} username={account.username ?? ""} size="x-small" />
+                <div className={styles.details}>
+                    <div className={styles.name}>
+                        <Link href={`profile/@${account.username}`}><Text className={styles.username} fontWeight="bold">{`${account.username}`}</Text></Link>
+                        <Link href={`post/${id}`}><Text>{`| ${dayjs(createdAt).fromNow()}`}</Text></Link>
+                    </div>
+                    <Link href={`park/${park.id}`}><Text>{park.name}</Text></Link>
                 </div>
 
             </div>
             <div className={styles.imageContainer}>
-                <Image src={post.filePath} fill alt="photo of the park" />
+                <Image src={filePath} fill alt="photo of the park" />
             </div>
             <div className={styles.content}>
-                <Text fontWeight="bold">{user.username}</Text>
-                <Text>{post.content}</Text>
+                <Text fontWeight="bold">{account.username ?? ""}</Text>
+                <Text>{content}</Text>
             </div>
         </div>
     );

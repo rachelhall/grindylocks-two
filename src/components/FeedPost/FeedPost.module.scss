@@ -19,12 +19,16 @@
     position: relative;
 }
 
+.details {
+    margin-left: .5rem;
+}
+
 .name {
     display: flex;
-    margin-left: .5rem;
+    margin-bottom: .25rem;
 
     &>* {
-        margin: 0 .25rem;
+        margin-right: 0 .25rem;
     }
 }
 
@@ -35,4 +39,8 @@
     &>* {
         margin: 0 .175rem;
     }
+}
+
+.username {
+    margin-right: .25rem;
 }

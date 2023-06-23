@@ -15,11 +15,11 @@ export const Feed: React.FC<IProps> = (props) => {
     if (isLoading) {
         return <div>Loading...</div>;
     }
-
+    console.log(data)
     return (
         <div className={styles.Feed}>
             {data?.map((post) => (
-                <FeedPost {...post} key={post.post.id} />
+                <FeedPost account={post.account} key={post.id} content={post.content} createdAt={post.createdAt} filePath={post.filePath} id={""} park={post.park} userId={""} />
             ))}
         </div>
     );

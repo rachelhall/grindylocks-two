@@ -5,13 +5,14 @@ import clsx from "clsx";
 
 interface IProps {
   children: JSX.Element;
-  size?: "small"
+  className?: string
+  size?: "xSmall" | "small"
 }
 
 export const Card: React.FC<IProps> = (props) => {
-  const { children, size = "small" } = props;
+  const { children, className, size = "small" } = props;
 
-  const mainClass = clsx(styles.Card, size === "small" ? styles.small : styles.medium)
+  const mainClass = clsx(styles.Card, styles[size], className)
 
   return <div className={mainClass}>{children}</div>;
 };

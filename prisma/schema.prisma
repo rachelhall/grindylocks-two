@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 datasource db {
     provider     = "mysql"
     url          = env("DATABASE_URL")
@@ -12,19 +9,22 @@ generator client {
 }
 
 model Post {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    content   String   @db.VarChar(255)
-    filePath  String?
-    park      Park     @relation(fields: [parkId], references: [id])
-    userId    String
-    account   Account? @relation(fields: [accountId], references: [id])
-    parkId    String
-    accountId String?
+    id         String    @id @default(cuid())
+    createdAt  DateTime  @default(now())
+    content    String    @db.VarChar(255)
+    filePath   String?
+    park       Park      @relation(fields: [parkId], references: [id])
+    userId     String
+    account    Account?  @relation(fields: [accountId], references: [id])
+    parkId     String
+    accountId  String?
+    Business   Business? @relation(fields: [businessId], references: [id])
+    businessId String?
 
     @@index([userId])
     @@index([parkId])
     @@index([accountId])
+    @@index([businessId])
 }
 
 enum Category {
@@ -48,10 +48,25 @@ enum Wheel {
 }
 
 model Business {
-    id          String    @id @default(cuid())
-    name        String
-    team_riders Account[]
-    accountId   String?
+    id             String    @id @default(cuid())
+    name           String
+    team_riders    Account[]
+    accountId      String?
+    profilePicture String?
+    description    String?
+    address_number String?
+    hours          String?
+    street         String?
+    street_suffix  String?
+    unit_number    String?
+    post_code      String?
+    city           String?
+    region         String?
+    region_code    String?
+    country        String?
+    lat            String?
+    lng            String?
+    posts          Post[]
 
     @@index([accountId])
 }

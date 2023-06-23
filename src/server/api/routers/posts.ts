@@ -32,6 +32,7 @@ const addUserDataToPosts = async (posts: Post[]) => {
 
     return {
       post,
+
       user: { ...user, username: user.username ?? "no username" },
     };
   });
@@ -63,9 +64,10 @@ export const postsRouter = createTRPCRouter({
         {
           createdAt: "desc"
         }
-      ]
+      ],
+      include: { account: true, park: true }
     });
-    return addUserDataToPosts(posts)
+    return posts
   }),
 
   getPostsByUserId: publicProcedure.input(z.object({
@@ -75,9 +77,9 @@ export const postsRouter = createTRPCRouter({
       userId: input.userId
     },
     take: 100,
-    orderBy: [{ createdAt: "desc" }]
-  }).then(addUserDataToPosts)
-  ),
+    orderBy: [{ createdAt: "desc" }],
+    include: { park: true }
+  })),
 
   getPostsByParkId: publicProcedure.input(z.object({
     parkId: z.string()
