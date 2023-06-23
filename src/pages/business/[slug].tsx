@@ -13,7 +13,7 @@ const BusinessPage: NextPage<{ trpcState: any }> = (props) => {
 
     const { data, isLoading } = api.business.getBusinessById.useQuery({ id: business_id })
     const { data: postData, isLoading: postIsLoading } = api.posts.getPostsByUserId.useQuery({ userId: data?.id ?? "" })
-    const posts = postData?.map(post => post.post) ?? []
+
 
     if (isLoading) {
         return <div>Loading...</div>
