@@ -24,7 +24,7 @@ export const BusinessDetails: React.FC<IProps> = (props) => {
                 <Text fontSize="medium">{`${business.name}`}</Text>
                 <Text fontSize="medium" fontWeight="bold">Riders:</Text>
                 {riders.map(rider => (
-                    <Link href={`/profile/@${rider.username}`}>
+                    <Link href={`/profile/@${rider.username}`} key={rider.id}>
                         <Text>{rider.first_name ?? ""}</Text>
                     </Link>
                 ))}

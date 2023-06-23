@@ -6,7 +6,6 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { PostView } from "grindylocks/components/PostView";
 import Feed from "grindylocks/components/Feed";
 
 
