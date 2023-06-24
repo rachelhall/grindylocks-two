@@ -1,0 +1,29 @@
+.FollowRequestCard {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    border-bottom: 1px solid #dbdbdb;
+    margin: .5rem 0;
+    padding: .5rem 0
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    margin: 0 .5rem;
+
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    &>* {
+        margin-right: 1rem;
+    }
+}
+
+.button {
+    margin: 0 .5rem 0;
+}

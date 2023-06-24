@@ -48,7 +48,7 @@ export const createTRPCContext = (opts: CreateNextContextOptions) => {
   const userId = session.userId
   return {
     prisma,
-    userId
+    userId,
   };
 };
 

@@ -8,7 +8,6 @@ import { SignInButton, SignOutButton, SignUpButton, useUser } from "@clerk/nextj
 import NavBar from "../NavBar";
 import Link from "next/link";
 import Avatar from "grindylocks/styleComponents/Avatar";
-import { useMediaQuery } from "grindylocks/lib/hooks/useMediaQuery";
 interface IProps {
 
 }
@@ -16,10 +15,6 @@ interface IProps {
 export const Header: React.FC<IProps> = (props) => {
     const { } = props;
     const { user, isSignedIn } = useUser();
-
-
-
-
 
     return (
         <header className={styles.Header}>

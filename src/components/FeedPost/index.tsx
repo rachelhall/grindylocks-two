@@ -23,7 +23,6 @@ interface IProps {
 }
 
 export const FeedPost: React.FC<IProps> = (props) => {
-    console.log(props)
     const { account, content, createdAt, filePath, id, park } = props;
 
 

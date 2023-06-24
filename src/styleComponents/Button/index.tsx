@@ -12,8 +12,8 @@ interface IProps extends React.HTMLProps<HTMLButtonElement> {
   inline?: boolean;
   isLoading?: boolean;
   linkTo?: string;
-  onClick?: () => void;
-  buttonSize?: "small" | "medium" | "large" | "full" | "fit" | undefined;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  buttonSize?: "micro" | "xSmall" | "small" | "medium" | "large" | "full" | "fit";
   borderRadius?: 1 | 2 | 3 | "none";
   textButton?: boolean;
   type?: "submit" | "reset" | "button";
@@ -22,15 +22,18 @@ interface IProps extends React.HTMLProps<HTMLButtonElement> {
 export const Button: React.FC<IProps> = (props) => {
   const {
     children,
+    buttonSize = "small",
+    className,
     disabled,
     linkTo,
     onClick,
     type = "button",
+    value
   } = props;
 
   const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!!onClick && !disabled) {
-      onClick();
+      onClick(e);
     }
   };
 
@@ -38,10 +41,10 @@ export const Button: React.FC<IProps> = (props) => {
     return <Link href={linkTo}>{children}</Link>;
   }
 
-  const mainClass = clsx(styles.button);
+  const mainClass = clsx(styles.button, styles[buttonSize], className);
 
   return (
-    <button className={mainClass} onClick={handleOnClick} type={type}>
+    <button className={mainClass} onClick={handleOnClick} type={type} value={value}>
       {children}
     </button>
   );

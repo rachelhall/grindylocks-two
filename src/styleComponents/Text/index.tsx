@@ -3,7 +3,7 @@ import clsx from "clsx";
 import styles from "./Text.module.scss";
 
 interface IProps {
-  children?: JSX.Element | string;
+  children?: JSX.Element | string | null;
   className?: string;
   color?: "black" | "dark" | "light" | "accent";
   fontSize?: "small" | "medium" | "large" | "huge";
@@ -14,7 +14,7 @@ interface IProps {
 }
 
 export const Text: React.FC<IProps> = ({
-  children,
+  children = "",
   className,
   color = "black",
   fontSize = "small",

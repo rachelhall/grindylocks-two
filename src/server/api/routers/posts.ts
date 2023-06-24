@@ -42,7 +42,7 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis"
 
 
-const ratelimit = new Ratelimit({
+export const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
   limiter: Ratelimit.slidingWindow(3, "1 m"),
   analytics: true,
@@ -103,7 +103,7 @@ export const postsRouter = createTRPCRouter({
         userId,
         content: input.content,
         filePath: input.filePath,
-        parkId: input.parkId
+        parkId: input.parkId,
       }
     })
     return post

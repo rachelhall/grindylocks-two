@@ -5,12 +5,14 @@ import { generateSSGHelper } from "grindylocks/server/helpers/ssgHelper";
 import PostGrid from "grindylocks/components/PostGrid";
 import styles from "./Profile.module.scss"
 import { ProfileDetails } from "grindylocks/components/ProfileDetails";
+import { toast } from "react-hot-toast";
+import { useUser } from "@clerk/nextjs";
 
 
 const ProfilePage: NextPage<{ trpcState: any }> = (props) => {
     const username = props.trpcState.json.queries[0].state.data.username;
 
-    const { data, isLoading } = api.account.getAccountByUsername.useQuery({ username })
+    const { data, isLoading, isError } = api.account.getAccountByUsername.useQuery({ username })
     const { data: postData, isLoading: postIsLoading } = api.posts.getPostsByUserId.useQuery({ userId: data?.id ?? "" })
 
     if (isLoading) {

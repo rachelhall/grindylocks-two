@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     if (typeof slug !== "string") throw new Error("no slug")
 
     const business_id = slug
-    console.log(business_id)
+
 
 
     await ssg.business.getBusinessById.prefetch({ id: business_id })

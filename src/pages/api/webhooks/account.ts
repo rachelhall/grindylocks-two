@@ -29,7 +29,6 @@ export default async function handler(
 
     const eventType: EventType = evt.type;
     if (eventType === "user.created" || eventType === "user.updated") {
-        console.log(evt.data)
         const { id } = evt.data;
         if (!evt.data.email_addresses[0]) throw new Error("Email required")
         const email = evt.data.email_addresses[0].email_address

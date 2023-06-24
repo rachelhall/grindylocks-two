@@ -47,6 +47,12 @@ enum Wheel {
     SKATEBOARD
 }
 
+enum FollowRequestStatus {
+    PENDING
+    ACCEPTED
+    REJECTED
+}
+
 model Business {
     id             String    @id @default(cuid())
     name           String
@@ -71,27 +77,39 @@ model Business {
     @@index([accountId])
 }
 
+model FollowRequest {
+    id           String              @id @default(cuid())
+    requested_id String
+    status       FollowRequestStatus
+    Account      Account?            @relation(fields: [accountId], references: [id])
+    accountId    String
+
+    @@index([accountId])
+}
+
 model Account {
-    id             String     @id @default(cuid())
-    userId         String     @unique
-    email          String
-    username       String?    @unique
-    first_name     String?
-    last_name      String?
-    bio            String?
-    pronouns       String?
-    local          Park?      @relation(fields: [parkId], references: [id])
-    city           String?
-    region         String?
-    region_code    String?
-    sponsors       Business[]
-    wheels         Wheel?
-    friends        Account[]  @relation("friends")
-    friendsOf      Account[]  @relation("friends")
-    parkId         String?
-    tricks         Trick[]
-    profilePicture String?
-    posts          Post[]
+    id              String          @id @default(cuid())
+    userId          String          @unique
+    email           String
+    username        String?         @unique
+    first_name      String?
+    last_name       String?
+    bio             String?
+    pronouns        String?
+    local           Park?           @relation(fields: [parkId], references: [id])
+    city            String?
+    region          String?
+    region_code     String?
+    sponsors        Business[]
+    wheels          Wheel?
+    follow_requests FollowRequest[]
+    followedBy      Account[]       @relation("Follows")
+    following       Account[]       @relation("Follows")
+    parkId          String?
+    tricks          Trick[]
+    profilePicture  String?
+    posts           Post[]
+    accountId       String?
 
     @@index([parkId])
 }
