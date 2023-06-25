@@ -30,8 +30,7 @@ export const FollowButton: React.FC<IProps> = (props) => {
     })
 
     const handleFollow = () => {
-        const success = mutate({ account_id: currentAccountId, requested_id: accountId })
-
+        mutate({ account_id: currentAccountId, requested_id: accountId })
     }
     return (
         <div className={styles.FollowButton}>

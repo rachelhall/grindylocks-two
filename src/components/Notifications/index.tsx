@@ -14,7 +14,7 @@ export const Notifications: React.FC<IProps> = (props) => {
 
     const { user } = useUser()
     const { data, isError } = api.account.getAccountByUsername.useQuery({ username: user?.username ?? "" })
-    const followRequests = data?.follow_requests
+    const followRequests = data?.follow_requests.filter(request => request.status === "PENDING")
 
     return (
         <div className={styles.Notifications}>
