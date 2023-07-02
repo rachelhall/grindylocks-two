@@ -2,30 +2,13 @@ import FeedPost from "grindylocks/components/FeedPost";
 import { generateSSGHelper } from "grindylocks/server/helpers/ssgHelper";
 import { api } from "grindylocks/utils/api";
 import type { GetStaticProps, NextPage } from "next";
-import Head from "next/head";
 
 const SinglePostPage: NextPage<{ id: string }> = ({ id }) => {
-    const { data } = api.posts.getById.useQuery({ id })
-    if (!data) return <div>404</div>
-    const { account, content, createdAt, filePath, park, userId } = data;
     return (
-        <>
-            <Head>
-                <title>Post</title>
-            </Head>
-
-            <FeedPost account={account}
-                id={id}
-                content={content}
-                createdAt={createdAt}
-                filePath={filePath}
-                park={park}
-                userId={userId}
-                key={id}
-            />
-
-        </>
-
+        <FeedPost
+            id={id}
+            key={id}
+        />
     )
 };
 
