@@ -14,7 +14,7 @@ export const Feed: React.FC<IProps> = (props) => {
     const { } = props;
     const account = useContext(AccountContext)
 
-    if (!account) throw new Error("You must be authenticated to view your feed")
+    if (!account) return <div>Please login to view your feed.</div>
 
     const { data, isLoading } = api.posts.getAll.useQuery({ accountId: account?.id });
     if (isLoading) {

@@ -1,6 +1,5 @@
 import FeedPost from "grindylocks/components/FeedPost";
 import { generateSSGHelper } from "grindylocks/server/helpers/ssgHelper";
-import { api } from "grindylocks/utils/api";
 import type { GetStaticProps, NextPage } from "next";
 
 const SinglePostPage: NextPage<{ id: string }> = ({ id }) => {
