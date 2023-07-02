@@ -1,14 +1,13 @@
 import React, { useContext } from "react";
 
 import styles from "./Header.module.scss";
-import { Button, Text } from "grindylocks/styleComponents";
+import { Text } from "grindylocks/styleComponents";
 import { SignInButton, SignOutButton, SignUpButton, useUser } from "@clerk/nextjs";
 
 
 import NavBar from "../NavBar";
 import Link from "next/link";
 import Avatar from "grindylocks/styleComponents/Avatar";
-import { api } from "grindylocks/utils/api";
 import { AccountContext } from "grindylocks/lib/context/accountContext";
 interface IProps {
 
@@ -19,7 +18,7 @@ export const Header: React.FC<IProps> = (props) => {
     const account = useContext(AccountContext)
 
 
-    const { user, isSignedIn } = useUser()
+    const { isSignedIn } = useUser()
 
     return (
         <header className={styles.Header}>
@@ -29,7 +28,7 @@ export const Header: React.FC<IProps> = (props) => {
             <NavBar />
             <div className={styles.account}>
                 {account && <Link href={`/profile/@${account?.username}`}>
-                    <Avatar initials={`${account?.first_name?.[0]} ${account?.last_name?.[0]}`} src={account?.profilePicture ?? ""} username={user.username ?? ""} />
+                    <Avatar initials={`${account?.first_name?.[0]} ${account?.last_name?.[0]}`} src={account?.profilePicture ?? ""} username={account.username ?? ""} />
                 </Link>}
                 {!isSignedIn ? <span><SignInButton /> <SignUpButton /></span> : <SignOutButton />}
             </div>
