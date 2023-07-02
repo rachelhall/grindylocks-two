@@ -19,7 +19,7 @@ export const BusinessDetails: React.FC<IProps> = (props) => {
     const { business, riders } = props;
     return (
         <div className={style.BusinessDetails}>
-            {business.profilePicture && <Avatar className={style.avatar} size="large" src={business.profilePicture} username={business.name ?? ""} />}
+            {business.profilePicture && <Avatar className={style.avatar} size="large" initials={business.name[0] ?? ""} src={business.profilePicture} username={business.name ?? ""} />}
             <div className={style.details}>
 
 

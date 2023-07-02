@@ -15,11 +15,22 @@ const ratelimit = new Ratelimit({
 
 export const parksRouter = createTRPCRouter({
     getById: publicProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
-        const park = await ctx.prisma.park.findUnique({ where: { id: input.id }, include: { media: true, posts: true } })
+        const park = await ctx.prisma.park.findUnique({
+            where: {
+                id: input.id
+            }, include: {
+                media: true, posts: {
+                    where: {
+                        account: {
+                            visibility: "PUBLIC"
+                        }
+                    }
+                }
+            }
+        })
         if (!park) throw new TRPCError({ code: "NOT_FOUND" })
         return park
     }),
-
 
     getAll: publicProcedure.query(async ({ ctx }) => {
         const parks = await ctx.prisma.park.findMany({

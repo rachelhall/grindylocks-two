@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, privateProcedure } from "../trpc";
-import { ratelimit } from "./posts";
+import { ratelimit } from "./postsRouter";
 import { TRPCError } from "@trpc/server";
 import { FollowRequestStatus } from "@prisma/client";
 

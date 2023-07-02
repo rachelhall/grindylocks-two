@@ -41,7 +41,7 @@ export const FollowRequestCard: React.FC<IProps> = (props) => {
 
     return (
         <div className={styles.FollowRequestCard}>
-            <Avatar src={followerRequesting?.profilePicture ?? ""} username={followerRequesting?.username ?? ""} />
+            <Avatar src={followerRequesting?.profilePicture ?? ""} initials={`${followerRequesting.first_name?.[0]} ${followerRequesting.last_name?.[0]}`} username={followerRequesting?.username ?? ""} />
 
 
             <Link href={`profiles/@${followerRequesting?.username}`} className={styles.link}>

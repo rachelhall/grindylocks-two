@@ -53,6 +53,11 @@ enum FollowRequestStatus {
     REJECTED
 }
 
+enum Visibility {
+    PUBLIC
+    PRIVATE
+}
+
 model Business {
     id             String    @id @default(cuid())
     name           String
@@ -110,6 +115,7 @@ model Account {
     profilePicture  String?
     posts           Post[]
     accountId       String?
+    visibility      Visibility      @default(PUBLIC)
 
     @@index([parkId])
 }

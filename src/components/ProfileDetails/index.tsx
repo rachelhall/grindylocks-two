@@ -28,7 +28,7 @@ export const ProfileDetails: React.FC<IProps> = (props) => {
 
     return (
         <div className={style.ProfileDetails}>
-            {account.profilePicture && <Avatar className={style.avatar} size="large" src={account.profilePicture} username={account.username ?? ""} />}
+            {account.profilePicture && <Avatar initials={`${account.first_name?.[0]} ${account.last_name?.[0]}`} className={style.avatar} size="large" src={account.profilePicture} username={account.username ?? ""} />}
             <div className={style.details}>
                 <Text fontSize="medium">{`${account.username}`}</Text>
                 <div className={style.postCount}>

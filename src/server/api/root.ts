@@ -1,5 +1,5 @@
 import { createTRPCRouter } from "grindylocks/server/api/trpc";
-import { postsRouter } from "./routers/posts";
+import { postsRouter } from "./routers/postsRouter";
 import { profileRouter } from "./routers/profile";
 import { parksRouter } from "./routers/parksRouter";
 import { accountRouter } from "./routers/AccountRouter";

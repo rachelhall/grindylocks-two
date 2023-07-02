@@ -8,13 +8,18 @@ import { SignInButton, SignOutButton, SignUpButton, useUser } from "@clerk/nextj
 import NavBar from "../NavBar";
 import Link from "next/link";
 import Avatar from "grindylocks/styleComponents/Avatar";
+import { api } from "grindylocks/utils/api";
+import { AccountContext } from "grindylocks/lib/context/accountContext";
 interface IProps {
 
 }
 
 export const Header: React.FC<IProps> = (props) => {
     const { } = props;
-    const { user, isSignedIn } = useUser();
+    const account = useContext(AccountContext)
+
+
+    const { user, isSignedIn } = useUser()
 
     return (
         <header className={styles.Header}>
@@ -23,8 +28,8 @@ export const Header: React.FC<IProps> = (props) => {
             </Link>
             <NavBar />
             <div className={styles.account}>
-                {user && <Link href={`/profile/@${user.username}`}>
-                    <Avatar src={user.profileImageUrl} username={user.username ?? ""} />
+                {account && <Link href={`/profile/@${account?.username}`}>
+                    <Avatar initials={`${account?.first_name?.[0]} ${account?.last_name?.[0]}`} src={account?.profilePicture ?? ""} username={user.username ?? ""} />
                 </Link>}
                 {!isSignedIn ? <span><SignInButton /> <SignUpButton /></span> : <SignOutButton />}
             </div>

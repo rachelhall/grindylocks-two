@@ -4,6 +4,7 @@ import styles from "./Notifications.module.scss";
 import { FollowRequestCard } from "../FollowRequestCard";
 import { useUser } from "@clerk/nextjs";
 import { api } from "grindylocks/utils/api";
+import { Text } from 'grindylocks/styleComponents'
 
 interface IProps {
 
@@ -18,6 +19,7 @@ export const Notifications: React.FC<IProps> = (props) => {
 
     return (
         <div className={styles.Notifications}>
+            <Text fontSize="large" fontWeight="bold" color="black">Notifications</Text>
             {followRequests?.map(request => (
                 <FollowRequestCard followRequest={request} />
             ))}

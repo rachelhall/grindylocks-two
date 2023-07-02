@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import styles from "./Feed.module.scss";
 import { api } from "grindylocks/utils/api";
 import FeedPost from "../FeedPost";
+import { AccountContext } from "grindylocks/lib/context/accountContext";
+import { Text } from "grindylocks/styleComponents";
 
 interface IProps {
 
@@ -10,17 +12,24 @@ interface IProps {
 
 export const Feed: React.FC<IProps> = (props) => {
     const { } = props;
+    const account = useContext(AccountContext)
 
-    const { data, isLoading } = api.posts.getAll.useQuery();
+    if (!account) throw new Error("You must be authenticated to view your feed")
+
+    const { data, isLoading } = api.posts.getAll.useQuery({ accountId: account?.id });
     if (isLoading) {
         return <div>Loading...</div>;
     }
 
+
+
     return (
         <div className={styles.Feed}>
-            {data?.map((post) => (
-                <FeedPost account={post.account} key={post.id} content={post.content} createdAt={post.createdAt} filePath={post.filePath} id={""} park={post.park} userId={""} />
-            ))}
+            {data?.length === 0 ? <Text>Follow some skaters to see their posts in your feed.</Text> :
+                data?.map((post) => (
+                    <FeedPost id={post.id} />
+                ))}
+
         </div>
     );
 };

@@ -3,7 +3,7 @@ import { createTRPCRouter, privateProcedure, publicProcedure } from "grindylocks
 import { clerkClient } from "@clerk/nextjs";
 import { type User } from "@clerk/nextjs/dist/types/server";
 import { TRPCError } from "@trpc/server";
-import type { Post } from "@prisma/client"
+import { Visibility, type Post } from "@prisma/client"
 
 
 const filterUserForClient = (user: User) => {
@@ -57,9 +57,20 @@ export const postsRouter = createTRPCRouter({
   }),
 
 
-  getAll: publicProcedure.query(async ({ ctx }) => {
+  getAll: privateProcedure.input(z.object({ accountId: z.string() })).query(async ({ ctx, input }) => {
     const posts = await ctx.prisma.post.findMany({
       take: 100,
+      where: {
+        account: {
+          is: {
+            followedBy: {
+              some: {
+                id: input.accountId
+              }
+            }
+          }
+        }
+      },
       orderBy: [
         {
           createdAt: "desc"
@@ -85,11 +96,25 @@ export const postsRouter = createTRPCRouter({
     parkId: z.string()
   })).query(({ ctx, input }) => ctx.prisma.post.findMany({
     where: {
-      parkId: input.parkId
+      parkId: input.parkId,
+      account: {
+        visibility: Visibility.PUBLIC
+      }
     }
   })),
 
-  create: privateProcedure.input(z.object({ content: z.string().min(1).max(280), filePath: z.string(), parkId: z.string() })).mutation(async ({ ctx, input }) => {
+  getPublicPostsByParkId: publicProcedure.input(z.object({
+    parkId: z.string()
+  })).query(({ ctx, input }) => ctx.prisma.post.findMany({
+    where: {
+      parkId: input.parkId,
+      account: {
+        visibility: Visibility.PUBLIC
+      }
+    }
+  })),
+
+  create: privateProcedure.input(z.object({ accountId: z.string(), content: z.string().min(1).max(280), filePath: z.string(), parkId: z.string() })).mutation(async ({ ctx, input }) => {
     const userId = ctx.userId
 
     const { success } = await ratelimit.limit(userId)
@@ -104,6 +129,7 @@ export const postsRouter = createTRPCRouter({
         content: input.content,
         filePath: input.filePath,
         parkId: input.parkId,
+        accountId: input.accountId
       }
     })
     return post

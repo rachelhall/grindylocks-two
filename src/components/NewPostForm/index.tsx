@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import Select from "grindylocks/styleComponents/Select";
 import { useModal } from "grindylocks/lib/hooks/useModal";
 import { ModalContext } from "grindylocks/lib/context/ModalContext";
+import { AccountContext } from "grindylocks/lib/context/accountContext";
 
 type TFormInput = {
     content: string;
@@ -24,6 +25,8 @@ interface IProps {
 
 export const NewPostForm: React.FC<IProps> = (props) => {
     const { } = props;
+
+    const account = useContext(AccountContext)
 
     const { data: parks } = api.parks.getAll.useQuery()
     const { handleSubmit, register, watch } = useForm<TFormInput>();
@@ -57,6 +60,8 @@ export const NewPostForm: React.FC<IProps> = (props) => {
         }
     })
 
+    if (!account) throw new Error("You must be logged in to post.")
+
     const onSubmit: SubmitHandler<TFormInput> = async ({ content, files, parkId }) => {
         try {
             const formData = new FormData();
@@ -74,7 +79,7 @@ export const NewPostForm: React.FC<IProps> = (props) => {
 
             const { filePath } = await res.json();
 
-            mutate({ content, filePath, parkId })
+            mutate({ accountId: account?.id, content, filePath, parkId })
         } catch (error) {
             console.error(error);
         }
