@@ -20,7 +20,9 @@ const roboto = Roboto({
 
 export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
     const { user } = useUser();
+
     const { data } = api.account.getAccountByUsername.useQuery({ username: user?.username ?? "" })
+
 
     const account = data ?? null;
 

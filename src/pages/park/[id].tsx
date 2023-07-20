@@ -6,16 +6,16 @@ import PostGrid from "grindylocks/components/PostGrid";
 
 const SingleParkPage: NextPage<{ id: string }> = ({ id }) => {
     const { data, isLoading } = api.parks.getById.useQuery({ id: id })
-    const postData = data?.posts
+    const postData = data?.posts ?? []
 
     if (isLoading) return <div>Loading...</div>
+    if (postData.length === 0) return <div>No one has posted at this park yet. Maybe you could be the first?</div>
     if (!data) return <div>404</div>
 
     return (
         <div>
             <Text fontSize="huge">{data.name}</Text>
-
-            {postData && <PostGrid posts={postData} />}
+            <PostGrid posts={postData} />
         </div>
     )
 }

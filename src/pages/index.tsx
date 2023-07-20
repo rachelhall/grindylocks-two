@@ -3,7 +3,7 @@ import Feed from "grindylocks/components/Feed";
 
 const Home: NextPage = () => {
   return (
-    <div className="flex flex-col">
+    <div style={{ display: 'flex', }}>
       <Feed />
     </div>
   );

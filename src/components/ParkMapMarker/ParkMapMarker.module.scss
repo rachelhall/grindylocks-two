@@ -1,0 +1,21 @@
+.ParkMapMarker {
+  background-color: var(--medium);
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  position: relative;
+  max-width: 6rem;
+  cursor: pointer;
+  &::after {
+    content: "";
+    border-style: solid;
+    border-color: var(--medium) transparent;
+    border-width: 20px 20px 0 20px;
+    width: 0;
+    position: absolute;
+    bottom: -1rem;
+    right: calc(50% - 20px);
+  }
+  :hover {
+    color: var(--pink);
+  }
+}
