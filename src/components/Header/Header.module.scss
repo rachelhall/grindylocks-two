@@ -19,6 +19,10 @@
 }
 
 @media screen and (max-width: 480px) {
+    .account {
+        display: none;
+    }
+
     .logo {
         font-size: 1.25rem !important;
     }

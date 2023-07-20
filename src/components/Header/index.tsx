@@ -20,6 +20,8 @@ export const Header: React.FC<IProps> = (props) => {
 
     const { isSignedIn } = useUser()
 
+
+
     return (
         <header className={styles.Header}>
             <Link href="/">
