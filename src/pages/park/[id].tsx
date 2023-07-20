@@ -15,6 +15,17 @@ const SingleParkPage: NextPage<{ id: string }> = ({ id }) => {
     return (
         <div>
             <Text fontSize="huge">{data.name}</Text>
+            <Text>{data.description}</Text>
+            <br />
+            <Text>{`${data.address_number} ${data.street}`}</Text>
+            <Text>{`${data.city}, ${data.region_code} ${data.post_code}`}</Text>
+            <br />
+            <Text fontWeight="bold">Surface:</Text>
+            <Text>{data.surface}</Text>
+            <Text fontWeight="bold">Elements:</Text>
+            {data.elements.map(element => (
+                <Text>{element.name}</Text>
+            ))}
             <PostGrid posts={postData} />
         </div>
     )

@@ -19,6 +19,7 @@ export const parksRouter = createTRPCRouter({
             where: {
                 id: input.id
             }, include: {
+                elements: true,
                 media: true, posts: {
                     where: {
                         account: {
