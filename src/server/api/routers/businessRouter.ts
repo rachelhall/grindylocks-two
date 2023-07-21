@@ -12,7 +12,10 @@ export const businessRouter = createTRPCRouter({
 
     getAll: publicProcedure.query(async ({ ctx }) => {
         const business = await ctx.prisma.business.findMany({
-            take: 100
+            take: 100,
+            include: {
+                team_riders: true
+            }
         })
         return business
     }),

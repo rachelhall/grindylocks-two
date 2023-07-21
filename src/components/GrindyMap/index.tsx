@@ -5,14 +5,17 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./GrindyMap.module.scss";
 import { useRect } from "grindylocks/lib/hooks/useRect";
 import { api } from "grindylocks/utils/api";
-import { ParkMapMarker } from "../ParkMapMarker";
+import { MapMarker } from "../MapMarker";
 
-interface IProps {}
+
+interface IProps { }
 
 export const GrindyMap: React.FC<IProps> = (props) => {
-  const {} = props;
+  const { } = props;
   const grindyMap = useRef(null);
-  const { data } = api.parks.getAll.useQuery();
+  const { data: parksData } = api.parks.getAll.useQuery();
+  const { data: businessesData } = api.business.getAll.useQuery();
+
 
   const rect = useRect(grindyMap);
 
@@ -45,9 +48,15 @@ export const GrindyMap: React.FC<IProps> = (props) => {
           mapStyle="mapbox://styles/mapbox/streets-v11"
           style={{ height, width }}
         >
-          {data?.map((park) => {
+          {parksData?.map((park) => {
             if (park.lat && park.lng) {
-              return <ParkMapMarker park={park} key={park.id} />;
+              return <MapMarker type="park" item={park} key={park.id} />;
+            }
+          })}
+          {businessesData?.map(business => {
+            if (business.lat && business.lng) {
+              console.log(business)
+              return <MapMarker type="business" item={business} key={business.id} />
             }
           })}
         </Map>
