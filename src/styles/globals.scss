@@ -1,5 +1,14 @@
 @import "./reset.css";
 
+html,
+body,
+body>div:first-child,
+div#__next,
+div#__next>div,
+main {
+  height: 100%;
+}
+
 body {
   overscroll-behavior: none;
   font-size: 16px;
