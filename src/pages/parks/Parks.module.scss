@@ -1,10 +1,25 @@
-.Parks {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
+.Parks {}
 
 .parkPreview {
     width: 300px;
     overflow-wrap: break-word;
+}
+
+.previews {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem;
+    overflow-y: scroll;
+    max-height: 1200px;
+}
+
+.columns {
+    display: flex;
+}
+
+.mapContainer {
+    border-left: 2px solid #dbdbdb;
+    flex: 1;
+    background-color: red;
 }

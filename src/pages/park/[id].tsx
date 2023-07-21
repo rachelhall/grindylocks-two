@@ -22,6 +22,7 @@ const SingleParkPage: NextPage<{ id: string }> = ({ id }) => {
             <br />
             <Text fontWeight="bold">Surface:</Text>
             <Text>{data.surface}</Text>
+            <br />
             <Text fontWeight="bold">Elements:</Text>
             {data.elements.map(element => (
                 <Text>{element.name}</Text>

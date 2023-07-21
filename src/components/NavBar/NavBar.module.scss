@@ -11,8 +11,10 @@
   margin: 0 1rem;
   color: var(--black);
   cursor: pointer;
+
   &:hover {
     color: var(--pink);
+    border-bottom: 2px solid var(--pink);
   }
 }
 
