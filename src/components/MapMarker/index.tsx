@@ -22,6 +22,8 @@ export const MapMarker: React.FC<IParkMapMarker> = (props) => {
       void router.push(`business/${item.id}`)
     }
   };
+
+  if (!item.lat || !item.lng) return;
   return (
     <Marker
       latitude={parseFloat(item.lat)}
