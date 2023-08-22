@@ -1,0 +1,9 @@
+.DropdownMenu {
+    background: var(--light-bg);
+    min-width: 120px;
+    border: 1px solid var(--light-bg-hover);
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    flex-direction: column;
+    overflow: hidden;
+}

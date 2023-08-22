@@ -1,5 +1,4 @@
-import React from "react";
-import { type UseFormRegister } from "react-hook-form";
+import React, { ReactNode } from "react";
 
 import styles from "./TextInput.module.scss";
 
@@ -9,18 +8,20 @@ interface IProps {
     name: string;
     required?: boolean;
     placeholder?: string
-    register: UseFormRegister<any>
     type: "email" | "text" | "phone" | "code" | "password";
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    icon?: ReactNode;
 }
 
 export const TextInput: React.FC<IProps> = (props) => {
-    const { name, required = false, placeholder, register, type } = props;
+    const { icon, name, required = false, placeholder, type, onChange } = props;
 
 
 
     return (
         <div className={styles.TextInput}>
-            <input {...register(name, { required })} placeholder={placeholder} type={type} />
+            {icon}
+            <input name={name} placeholder={placeholder} type={type} required={required} onChange={onChange} />
         </div>
     );
 };

@@ -10,13 +10,17 @@ import { ModalContext } from "grindylocks/lib/context/ModalContext";
 import NewPostForm from "grindylocks/components/NewPostForm";
 import Notifications from "../Notifications";
 import clsx from "clsx";
+import SearchBar from "../SearchBar";
+
 
 interface IProps {
+    className?: string;
     isFooter?: boolean;
 }
 
 export const NavBar: React.FC<IProps> = (props) => {
-    const { isFooter } = props;
+    const { className, isFooter } = props;
+
 
     const { handleModal } = useContext(ModalContext);
 
@@ -28,18 +32,20 @@ export const NavBar: React.FC<IProps> = (props) => {
         handleModal(<Notifications />)
     }
 
-
-    const mainClass = clsx(styles.NavBar, isFooter ? styles.footer : styles.header)
+    const mainClass = clsx(styles.NavBar, isFooter ? styles.footer : styles.header, className)
     const buttonStyles = clsx(styles.icon, isFooter ? styles.footer : styles.header)
+
+
 
     return (
         <div className={mainClass}>
-            <button onClick={handleOpenNewPostForm} className={styles.newPostIcon}>
-                <LuPlusSquare className={buttonStyles} />
-            </button>
+            <SearchBar />
             <Link href="/parks" className={styles.parksIcon}>
                 <GiRollerSkate className={buttonStyles} />
             </Link>
+            <button onClick={handleOpenNewPostForm} className={styles.newPostIcon}>
+                <LuPlusSquare className={buttonStyles} />
+            </button>
             <Link href="/map" className={styles.parksIcon}>
                 <CiMap className={buttonStyles} />
             </Link>

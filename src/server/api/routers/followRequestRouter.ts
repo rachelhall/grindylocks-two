@@ -3,6 +3,7 @@ import { createTRPCRouter, privateProcedure } from "../trpc";
 import { ratelimit } from "./postsRouter";
 import { TRPCError } from "@trpc/server";
 import { FollowRequestStatus } from "@prisma/client";
+import { TRPCClientError } from "@trpc/client";
 
 export const followRequestRouter = createTRPCRouter({
     getAllFollowRequestOnAccount: privateProcedure.input(z.object({ account_id: z.string() })).query(async ({ ctx, input }) => {
@@ -25,6 +26,16 @@ export const followRequestRouter = createTRPCRouter({
         // TODO: Prevent duplicate friend requests
 
         if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" })
+
+        const followRequests = await ctx.prisma.followRequest.findMany({
+            where: {
+                accountId: input.account_id
+            }
+        })
+
+        if (followRequests.some(request => request.requested_id === input.account_id)) {
+            throw new TRPCClientError("You have already requested this user")
+        }
 
         const followRequest = await ctx.prisma.followRequest.create({
             data: {

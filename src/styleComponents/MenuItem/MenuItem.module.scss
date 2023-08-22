@@ -1,0 +1,8 @@
+.MenuItem {
+    padding: .5rem;
+
+
+    &:hover {
+        background-color: var(--light-bg-hover);
+    }
+}

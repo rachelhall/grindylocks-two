@@ -53,6 +53,6 @@ export const parksRouter = createTRPCRouter({
                 ...input
             }
         })
-        return park
+        return { park, msg: "joseph is awesome" }
     }),
 });

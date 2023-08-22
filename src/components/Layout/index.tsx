@@ -10,6 +10,7 @@ import { useUser } from "@clerk/nextjs";
 import { api } from "grindylocks/utils/api";
 import { AccountContext } from "grindylocks/lib/context/accountContext";
 import clsx from "clsx";
+import { redirect } from 'next/navigation'
 
 const roboto = Roboto({
     weight: ['400', '700', '900'],

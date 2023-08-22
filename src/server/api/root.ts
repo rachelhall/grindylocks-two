@@ -5,6 +5,7 @@ import { parksRouter } from "./routers/parksRouter";
 import { accountRouter } from "./routers/AccountRouter";
 import { businessRouter } from "./routers/businessRouter";
 import { followRequestRouter } from "./routers/followRequestRouter";
+import { searchRouter } from "./routers/searchRouter";
 
 /**
  * This is the primary router for your server.
@@ -17,7 +18,8 @@ export const appRouter = createTRPCRouter({
   parks: parksRouter,
   account: accountRouter,
   business: businessRouter,
-  followRequest: followRequestRouter
+  followRequest: followRequestRouter,
+  search: searchRouter
 });
 
 // export type definition of API

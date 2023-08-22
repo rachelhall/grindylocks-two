@@ -1,0 +1,19 @@
+.SearchBar {
+    display: flex;
+    align-items: flex-end;
+    position: relative
+}
+
+.icon {
+    height: 1rem;
+    width: 1rem;
+    color: var(--black);
+    margin-right: .5rem;
+}
+
+.searchBarDropdownMenu {
+    position: absolute;
+    top: 100%;
+    display: flex;
+    overscroll-behavior: contain;
+}

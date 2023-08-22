@@ -1,30 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Text } from 'grindylocks/styleComponents'
 import pluralize from "pluralize"
 
 import style from "./ProfileDetails.module.scss";
 import Avatar from "grindylocks/styleComponents/Avatar";
-import { Account, Business, Post } from "@prisma/client";
+import { Account, Business, Post, Trick } from "@prisma/client";
 import Link from "next/link";
 import FollowButton from "../FollowButton";
 import { useUser } from "@clerk/nextjs";
 import { api } from "grindylocks/utils/api";
+import { AccountContext } from "grindylocks/lib/context/accountContext";
 
 interface IProps {
     account: Account;
     posts: Post[];
     sponsors: Business[];
+    tricks: Trick[];
 }
 
 
 
 export const ProfileDetails: React.FC<IProps> = (props) => {
-    const { account, posts, sponsors } = props;
+    const { account, posts, sponsors, tricks } = props;
     const { user } = useUser()
 
-    const { data: ownAccount } = api.account.getAccountByUsername.useQuery({ username: user?.username ?? "" })
-
+    const ownAccount = useContext(AccountContext)
     const isOwnAccount = ownAccount?.id === account.id
+    const followRequests = api.followRequest.getAllFollowRequestOnAccount.useQuery({ account_id: ownAccount.id })
+    console.log({ followRequests })
 
     return (
         <div className={style.ProfileDetails}>
@@ -45,6 +48,7 @@ export const ProfileDetails: React.FC<IProps> = (props) => {
                 </div>)}
                 <Text fontWeight="bold">{`${account.first_name ?? ""} ${account.last_name ?? ""}`}</Text>
                 <Text>{account.bio ?? ""}</Text>
+                {/* <Text>{`Tricks: ${tricks}`}</Text> */}
                 {!isOwnAccount && ownAccount && <FollowButton currentAccountId={ownAccount.id} accountId={account.id} />}
             </div>
         </div>

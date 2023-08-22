@@ -4,3 +4,10 @@
     position: relative;
     display: inline-flex;
 }
+
+.fallback {
+    background-color: var(--medium);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

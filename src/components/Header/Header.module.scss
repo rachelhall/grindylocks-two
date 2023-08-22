@@ -16,10 +16,21 @@
 .account {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  position: relative;
 }
 
-.avatar {
-  margin-right: 1rem;
+.account:hover .headerDropdownMenu {
+  display: flex;
+}
+
+.avatar {}
+
+.headerDropdownMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  display: none;
 }
 
 @media screen and (max-width: 480px) {

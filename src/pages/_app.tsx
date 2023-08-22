@@ -6,6 +6,7 @@ import Layout from "../components/Layout"
 import "grindylocks/styles/globals.scss";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
+
   return (
     <ClerkProvider>
       <Layout>
